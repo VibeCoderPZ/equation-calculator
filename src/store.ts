@@ -14,27 +14,27 @@ interface AppState {
   isDarkMode: boolean;
   calculatorMode: 'equation' | 'simple';
   simpleExpression: string;
-  
+
   addEquation: (equation: Omit<Equation, 'id'>) => void;
   updateEquation: (id: string, equation: Omit<Equation, 'id'>) => void;
   deleteEquation: (id: string) => void;
   setActiveEquation: (id: string) => void;
-  
+
   setInputValue: (val: string) => void;
   appendInput: (char: string) => void;
   deleteInput: () => void;
   clearInput: () => void;
   toggleSign: () => void;
-  
+
   toggleDarkMode: () => void;
   setCalculatorMode: (mode: 'equation' | 'simple') => void;
   setSimpleExpression: (expr: string | ((prev: string) => string)) => void;
 }
 
 const defaultEquations: Equation[] = [
-  { id: '1', name: 'Double and Add 5', expression: '2 * x + 5' },
-  { id: '2', name: 'Square', expression: 'x ^ 2' },
-  { id: '3', name: 'Celsius to Fahrenheit', expression: '(x * 9/5) + 32' },
+  { id: '1', name: 'Yen to Kyat', expression: 'x * 25.5' },
+  { id: '2', name: 'Yen to Baht', expression: 'x * 0.2' },
+  { id: '3', name: 'Baht to Yen', expression: 'x * 5' },
 ];
 
 export const useAppStore = create<AppState>()(
@@ -63,8 +63,8 @@ export const useAppStore = create<AppState>()(
         const newEquations = state.equations.filter((e) => e.id !== id);
         return {
           equations: newEquations,
-          activeEquationId: state.activeEquationId === id 
-            ? (newEquations[0]?.id || null) 
+          activeEquationId: state.activeEquationId === id
+            ? (newEquations[0]?.id || null)
             : state.activeEquationId,
         };
       }),
@@ -81,8 +81,8 @@ export const useAppStore = create<AppState>()(
       }),
 
       deleteInput: () => set((state) => ({
-        inputValue: state.inputValue.length > 1 
-          ? state.inputValue.slice(0, -1) 
+        inputValue: state.inputValue.length > 1
+          ? state.inputValue.slice(0, -1)
           : (state.inputValue.startsWith('-') && state.inputValue.length === 2 ? '' : ''),
       })),
 
@@ -91,8 +91,8 @@ export const useAppStore = create<AppState>()(
       toggleSign: () => set((state) => {
         if (!state.inputValue || state.inputValue === '0') return state;
         return {
-          inputValue: state.inputValue.startsWith('-') 
-            ? state.inputValue.slice(1) 
+          inputValue: state.inputValue.startsWith('-')
+            ? state.inputValue.slice(1)
             : '-' + state.inputValue,
         };
       }),
