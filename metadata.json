@@ -1,0 +1,5 @@
+{
+  "name": "Equation Calculator",
+  "description": "A mobile-first calculator app that evaluates custom equations.",
+  "requestFramePermissions": []
+}
